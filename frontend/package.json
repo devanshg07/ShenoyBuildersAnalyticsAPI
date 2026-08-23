@@ -30,11 +30,6 @@
     "tailwindcss": "^4.3.3",
     "typescript": "5.7.3"
   },
-  "pnpm": {
-    "overrides": {
-      "hono": "4.12.25"
-    }
-  },
   "description": "",
   "main": "index.js",
   "directories": {
@@ -43,5 +38,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@11.23.0+sha512.f00082e5b283a199b74e079da28d155c008fe232f44c8a06ea7ddfa014ecf719fc362f790ecc67b28106ddac2afb24c49a9a079159da560b2ce7d1e98efd11af"
+    "packageManager": "pnpm@10.15.1"
 }
