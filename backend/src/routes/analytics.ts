@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { getVisitorCount } from "../services/vercel.js";
-import { testSupabase } from "../services/supabase.js";
+import {
+  testSupabase,
+  getMonthlyAnalytics,
+} from "../services/supabase.js";
 
 const router = Router();
 
@@ -30,6 +33,22 @@ router.get("/visitors", async (_req, res) => {
   }
 });
 
+router.get("/monthly", async (_req, res) => {
+  try {
+    const data = await getMonthlyAnalytics();
+
+    res.json({
+      data,
+    });
+  } catch (error) {
+    console.error("SUPABASE ERROR:", error);
+
+    res.status(500).json({
+      error: "Failed to fetch monthly analytics",
+    });
+  }
+});
+
 router.get("/supabase-test", async (_req, res) => {
   try {
     const data = await testSupabase();
@@ -43,9 +62,10 @@ router.get("/supabase-test", async (_req, res) => {
 
     res.status(500).json({
       success: false,
-      error: error instanceof Error
-        ? error.message
-        : String(error),
+      error:
+        error instanceof Error
+          ? error.message
+          : String(error),
     });
   }
 });

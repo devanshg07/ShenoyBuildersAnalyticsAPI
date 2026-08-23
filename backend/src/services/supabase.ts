@@ -47,3 +47,16 @@ export async function saveMonthlyAnalytics(
 
   return data;
 }
+
+export async function getMonthlyAnalytics() {
+  const { data, error } = await supabase
+    .from("monthly_analytics")
+    .select("month, visitors, pageviews")
+    .order("month", { ascending: true });
+
+  if (error) {
+    throw new Error(`Supabase error: ${error.message}`);
+  }
+
+  return data;
+}

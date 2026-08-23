@@ -2,7 +2,7 @@ import "dotenv/config";
 import { getVisitorCount } from "../services/vercel.js";
 import { saveMonthlyAnalytics } from "../services/supabase.js";
 
-async function savePreviousMonth() {
+export async function savePreviousMonth() {
   const now = new Date();
 
   // First day of the current month
@@ -14,7 +14,7 @@ async function savePreviousMonth() {
     )
   );
 
-  // First day of previous month
+  // First day of the previous month
   const firstDayPreviousMonth = new Date(
     Date.UTC(
       now.getUTCFullYear(),
@@ -53,9 +53,6 @@ async function savePreviousMonth() {
 
   console.log("Saved to Supabase:");
   console.log(result);
-}
 
-savePreviousMonth().catch((error) => {
-  console.error("Monthly analytics job failed:", error);
-  process.exit(1);
-});
+  return result;
+}
