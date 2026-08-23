@@ -8,7 +8,7 @@ router.get("/visitors", async (_req, res) => {
   const start = performance.now();
 
   try {
-    const visitors = await getVisitorCount();
+    const analytics = await getVisitorCount();
 
     const duration = performance.now() - start;
 
@@ -17,7 +17,8 @@ router.get("/visitors", async (_req, res) => {
     );
 
     res.json({
-      visitors,
+      visitors: analytics.data.visitors,
+      pageviews: analytics.data.pageviews,
       responseTimeMs: Number(duration.toFixed(2)),
     });
   } catch (error) {
@@ -42,8 +43,11 @@ router.get("/supabase-test", async (_req, res) => {
 
     res.status(500).json({
       success: false,
-      error: error instanceof Error ? error.message : String(error),
+      error: error instanceof Error
+        ? error.message
+        : String(error),
     });
   }
 });
+
 export default router;
