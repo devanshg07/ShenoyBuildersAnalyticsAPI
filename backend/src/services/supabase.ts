@@ -28,11 +28,16 @@ export async function saveMonthlyAnalytics(
 ) {
   const { data, error } = await supabase
     .from("monthly_analytics")
-    .insert({
-      month,
-      visitors,
-      pageviews,
-    })
+    .upsert(
+      {
+        month,
+        visitors,
+        pageviews,
+      },
+      {
+        onConflict: "month",
+      }
+    )
     .select()
     .single();
 
